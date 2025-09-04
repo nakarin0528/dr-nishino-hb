@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>古希おめでとうございます</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      width: 100vw;
+      height: 100vh;
+      background: linear-gradient(180deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Hiragino Sans', 'Meiryo', sans-serif;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* 星空の背景 */
+    .stars {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+
+    .star {
+      position: absolute;
+      width: 2px;
+      height: 2px;
+      background: white;
+      border-radius: 50%;
+      animation: twinkle 4s infinite;
+    }
+
+    @keyframes twinkle {
+
+      0%,
+      100% {
+        opacity: 0;
+      }
+
+      50% {
+        opacity: 1;
+      }
+    }
+
+    /* メインコンテナ */
+    .container {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      position: relative;
+      z-index: 10;
+    }
+
+    /* タイトルメッセージ */
+    .main-message {
+      font-size: calc(1.8rem + 1vw);
+      font-weight: bold;
+      background: linear-gradient(45deg, #FFD700, #FFA500, #FF69B4);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-align: center;
+      margin-bottom: 30px;
+      opacity: 0;
+      animation: goldGlow 2s ease-out 0.5s forwards;
+      text-shadow: 0 0 30px rgba(255, 215, 0, 0.5);
+    }
+
+    @keyframes goldGlow {
+      from {
+        opacity: 0;
+        transform: scale(0.8) translateY(-20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+      }
+    }
+
+    /* 3Dケーキコンテナ */
+    .cake-container {
+      width: 300px;
+      height: 350px;
+      position: relative;
+      transform-style: preserve-3d;
+      animation: cakeRotate 20s infinite linear;
+      opacity: 0;
+      animation: cakeAppear 1.5s ease-out 2s forwards, cakeRotate 20s infinite linear 3.5s;
+    }
+
+    @keyframes cakeAppear {
+      from {
+        opacity: 0;
+        transform: scale(0) rotateY(0deg);
+      }
+
+      to {
+        opacity: 1;
+        transform: scale(1) rotateY(360deg);
+      }
+    }
+
+    @keyframes cakeRotate {
+      from {
+        transform: rotateY(0deg);
+      }
+
+      to {
+        transform: rotateY(360deg);
+      }
+    }
+
+    /* ケーキの層 */
+    .cake-layer {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      border-radius: 10%;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+    }
+
+    .layer-bottom {
+      width: 220px;
+      height: 80px;
+      background: linear-gradient(135deg, #8B4513, #A0522D);
+      bottom: 50px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    }
+
+    .layer-middle {
+      width: 180px;
+      height: 70px;
+      background: linear-gradient(135deg, #D2691E, #DEB887);
+      bottom: 130px;
+    }
+
+    .layer-top {
+      width: 140px;
+      height: 60px;
+      background: linear-gradient(135deg, #FFF8DC, #FAEBD7);
+      bottom: 200px;
+    }
+
+    /* クリーム装飾 */
+    .cream-decoration {
+      position: absolute;
+      width: 100%;
+      height: 15px;
+      background: linear-gradient(90deg, #FFF, #F0E68C);
+      top: -7px;
+      border-radius: 50%;
+      box-shadow: 0 2px 10px rgba(255, 255, 255, 0.6);
+    }
+
+    /* キャンドル */
+    .candles-container {
+      position: absolute;
+      bottom: 260px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 20px;
+    }
+
+    .candle-group {
+      position: relative;
+    }
+
+    .candle {
+      width: 15px;
+      height: 40px;
+      background: linear-gradient(180deg, #FFE4B5, #FFDAB9);
+      border-radius: 2px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    .flame {
+      width: 25px;
+      height: 35px;
+      background: radial-gradient(circle at bottom, #FFF 0%, #FFA500 30%, #FF4500 60%, transparent 100%);
+      border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+      position: absolute;
+      top: -35px;
+      left: 50%;
+      transform: translateX(-50%);
+      animation: flameFlicker 0.3s ease-in-out infinite alternate;
+      filter: blur(1px);
+    }
+
+    .flame::after {
+      content: '';
+      position: absolute;
+      width: 15px;
+      height: 20px;
+      background: radial-gradient(circle, #FFF 0%, #FFD700 50%, transparent 100%);
+      top: 5px;
+      left: 50%;
+      transform: translateX(-50%);
+      border-radius: 50%;
+      filter: blur(2px);
+    }
+
+    @keyframes flameFlicker {
+      0% {
+        transform: translateX(-50%) scale(1) skewX(-5deg);
+        filter: blur(1px) brightness(1);
+      }
+
+      100% {
+        transform: translateX(-50%) scale(1.1) skewX(5deg);
+        filter: blur(1.5px) brightness(1.2);
+      }
+    }
+
+    /* 70の数字 */
+    .number-70 {
+      position: absolute;
+      bottom: 90px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 3.5rem;
+      font-weight: 900;
+      background: linear-gradient(45deg, #FFD700, #FFA500);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 5px 20px rgba(255, 215, 0, 0.8);
+      animation: numberPulse 2s ease-in-out infinite;
+    }
+
+    @keyframes numberPulse {
+
+      0%,
+      100% {
+        transform: translateX(-50%) scale(1);
+      }
+
+      50% {
+        transform: translateX(-50%) scale(1.1);
+      }
+    }
+
+    /* 豪華な風船 */
+    .balloon {
+      position: absolute;
+      animation: balloonFloat 8s ease-in-out infinite;
+      filter: drop-shadow(0 5px 15px rgba(0, 0, 0, 0.3));
+    }
+
+    .balloon-body {
+      width: 100px;
+      height: 120px;
+      border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .balloon-shine {
+      position: absolute;
+      width: 30%;
+      height: 40%;
+      background: rgba(255, 255, 255, 0.6);
+      border-radius: 50%;
+      top: 10%;
+      left: 20%;
+      filter: blur(10px);
+    }
+
+    .balloon-string {
+      width: 2px;
+      height: 150px;
+      background: linear-gradient(180deg, #333 0%, transparent 100%);
+      position: absolute;
+      left: 50%;
+      bottom: -150px;
+      transform: translateX(-50%);
+    }
+
+    .balloon1 {
+      left: -5%;
+      top: 10%;
+      animation-delay: 0s;
+    }
+
+    .balloon1 .balloon-body {
+      background: linear-gradient(135deg, #FF69B4, #FF1493);
+    }
+
+    .balloon2 {
+      right: -5%;
+      top: 20%;
+      animation-delay: 1.5s;
+    }
+
+    .balloon2 .balloon-body {
+      background: linear-gradient(135deg, #FFD700, #FFA500);
+    }
+
+    .balloon3 {
+      left: 10%;
+      bottom: 15%;
+      animation-delay: 3s;
+    }
+
+    .balloon3 .balloon-body {
+      background: linear-gradient(135deg, #00CED1, #00BFFF);
+    }
+
+    .balloon4 {
+      right: 10%;
+      bottom: 20%;
+      animation-delay: 4.5s;
+    }
+
+    .balloon4 .balloon-body {
+      background: linear-gradient(135deg, #9370DB, #8A2BE2);
+    }
+
+    @keyframes balloonFloat {
+
+      0%,
+      100% {
+        transform: translateY(0) rotate(-5deg) scale(1);
+      }
+
+      25% {
+        transform: translateY(-30px) rotate(5deg) scale(1.05);
+      }
+
+      50% {
+        transform: translateY(-20px) rotate(-3deg) scale(1);
+      }
+
+      75% {
+        transform: translateY(-35px) rotate(3deg) scale(1.05);
+      }
+    }
+
+    /* 花火エフェクト */
+    .firework {
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      background: #FFD700;
+      border-radius: 50%;
+    }
+
+    @keyframes fireworkBurst {
+      0% {
+        transform: translate(0, 0) scale(1);
+        opacity: 1;
+      }
+
+      100% {
+        opacity: 0;
+      }
+    }
+
+    /* サブメッセージ */
+    .sub-message {
+      color: #FFF;
+      font-size: 1.3rem;
+      text-align: center;
+      margin-top: 40px;
+      opacity: 0;
+      animation: fadeInUp 1.5s ease-out 3.5s forwards;
+      line-height: 1.8;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* パーティクルエフェクト */
+    .particle {
+      position: absolute;
+      pointer-events: none;
+      animation: particleFall 8s linear infinite;
+    }
+
+    @keyframes particleFall {
+      0% {
+        transform: translateY(-100vh) rotate(0deg);
+        opacity: 0;
+      }
+
+      10% {
+        opacity: 1;
+      }
+
+      90% {
+        opacity: 1;
+      }
+
+      100% {
+        transform: translateY(100vh) rotate(720deg);
+        opacity: 0;
+      }
+    }
+
+    /* タップエフェクト */
+    .tap-effect {
+      position: absolute;
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255, 215, 0, 0.6) 0%, transparent 70%);
+      transform: translate(-50%, -50%) scale(0);
+      pointer-events: none;
+      animation: tapRipple 0.6s ease-out;
+    }
+
+    @keyframes tapRipple {
+      to {
+        transform: translate(-50%, -50%) scale(4);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- 星空の背景 -->
+  <div class="stars" id="stars"></div>
+
+  <!-- 風船 -->
+  <div class="balloon balloon1">
+    <div class="balloon-body">
+      <div class="balloon-shine"></div>
+    </div>
+    <div class="balloon-string"></div>
+  </div>
+  <div class="balloon balloon2">
+    <div class="balloon-body">
+      <div class="balloon-shine"></div>
+    </div>
+    <div class="balloon-string"></div>
+  </div>
+  <div class="balloon balloon3">
+    <div class="balloon-body">
+      <div class="balloon-shine"></div>
+    </div>
+    <div class="balloon-string"></div>
+  </div>
+  <div class="balloon balloon4">
+    <div class="balloon-body">
+      <div class="balloon-shine"></div>
+    </div>
+    <div class="balloon-string"></div>
+  </div>
+
+  <!-- メインコンテンツ -->
+  <div class="container">
+    <h1 class="main-message">✨ ㊗古希 ✨</h1>
+
+    <div class="cake-container">
+      <div class="cake-layer layer-bottom">
+        <div class="cream-decoration"></div>
+      </div>
+      <div class="cake-layer layer-middle">
+        <div class="cream-decoration"></div>
+      </div>
+      <div class="cake-layer layer-top">
+        <div class="cream-decoration"></div>
+      </div>
+      <div class="candles-container">
+        <div class="candle-group">
+          <div class="candle"></div>
+          <div class="flame"></div>
+        </div>
+        <div class="candle-group">
+          <div class="candle"></div>
+          <div class="flame"></div>
+        </div>
+      </div>
+      <div class="number-70">70</div>
+    </div>
+
+    <div class="sub-message">
+      学生の頃から今に至るまで、お世話になり続けているご縁に感謝しています。<br>
+      これからも変わらぬご健康とご活躍をお祈りしています。<br>
+      素晴らしい一年になりますように！
+    </div>
+  </div>
+
+  <script>
+    // 星を生成
+    function createStars() {
+      const starsContainer = document.getElementById('stars');
+      for (let i = 0; i < 100; i++) {
+        const star = document.createElement('div');
+        star.className = 'star';
+        star.style.left = Math.random() * 100 + '%';
+        star.style.top = Math.random() * 100 + '%';
+        star.style.animationDelay = Math.random() * 4 + 's';
+        star.style.width = star.style.height = (Math.random() * 2 + 1) + 'px';
+        starsContainer.appendChild(star);
+      }
+    }
+
+    // 花火エフェクト
+    function createFirework(x, y) {
+      const colors = ['#FFD700', '#FF69B4', '#00CED1', '#FF6347', '#9370DB'];
+      const particleCount = 30;
+
+      for (let i = 0; i < particleCount; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'firework';
+        particle.style.left = x + 'px';
+        particle.style.top = y + 'px';
+        particle.style.background = colors[Math.floor(Math.random() * colors.length)];
+
+        const angle = (Math.PI * 2 * i) / particleCount;
+        const velocity = 100 + Math.random() * 100;
+        const tx = Math.cos(angle) * velocity;
+        const ty = Math.sin(angle) * velocity;
+
+        particle.style.animation = `fireworkBurst 1s ease-out forwards`;
+        particle.style.transform = `translate(${tx}px, ${ty}px) scale(0)`;
+
+        document.body.appendChild(particle);
+
+        setTimeout(() => particle.remove(), 1000);
+      }
+    }
+
+    // パーティクル生成
+    function createParticle() {
+      const shapes = ['⭐', '🎉', '✨', '🎊', '💫'];
+      const particle = document.createElement('div');
+      particle.className = 'particle';
+      particle.innerHTML = shapes[Math.floor(Math.random() * shapes.length)];
+      particle.style.left = Math.random() * 100 + '%';
+      particle.style.fontSize = (Math.random() * 20 + 15) + 'px';
+      particle.style.animationDuration = (Math.random() * 3 + 5) + 's';
+      particle.style.animationDelay = Math.random() * 5 + 's';
+      document.body.appendChild(particle);
+
+      setTimeout(() => particle.remove(), 8000);
+    }
+
+    // タップエフェクト
+    function createTapEffect(e) {
+      const effect = document.createElement('div');
+      effect.className = 'tap-effect';
+      effect.style.left = e.clientX + 'px';
+      effect.style.top = e.clientY + 'px';
+      document.body.appendChild(effect);
+
+      setTimeout(() => effect.remove(), 600);
+
+      // タップ時に小さな花火も発生
+      createFirework(e.clientX, e.clientY);
+    }
+
+    // 初期化
+    window.addEventListener('load', () => {
+      createStars();
+
+      // 定期的に花火を打ち上げ
+      setInterval(() => {
+        const x = Math.random() * window.innerWidth;
+        const y = Math.random() * window.innerHeight * 0.5;
+        createFirework(x, y);
+      }, 3000);
+
+      // パーティクルを定期的に生成
+      setInterval(createParticle, 500);
+    });
+
+    // タップイベント
+    document.addEventListener('click', createTapEffect);
+    document.addEventListener('touchstart', (e) => {
+      e.preventDefault();
+      createTapEffect(e.touches[0]);
+    });
+  </script>
+</body>
+
+</html>
