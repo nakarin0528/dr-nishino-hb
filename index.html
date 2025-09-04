@@ -5,6 +5,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
   <title>古希おめでとうございます</title>
+  <!-- Google Fonts: Great Vibes 筆記体 -->
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
   <style>
     * {
       margin: 0;
@@ -22,6 +24,20 @@
       font-family: 'Hiragino Sans', 'Meiryo', sans-serif;
       overflow: hidden;
       position: relative;
+    }
+
+    /* 筆記体署名 */
+    .signature {
+      position: fixed;
+      right: 24px;
+      bottom: 16px;
+      font-family: 'Great Vibes', cursive;
+      font-size: 2rem;
+      color: #a0a0a0;
+      opacity: 0.8;
+      pointer-events: none;
+      user-select: none;
+      z-index: 1000;
     }
 
     /* 星空の背景 */
@@ -478,7 +494,7 @@
 
   <!-- メインコンテンツ -->
   <div class="container">
-    <h1 class="main-message">✨ ㊗古希 ✨</h1>
+    <h1 class="main-message">✨ 祝 古希 ✨</h1>
 
     <div class="cake-container">
       <div class="cake-layer layer-bottom">
@@ -509,6 +525,8 @@
       素晴らしい一年になりますように！
     </div>
   </div>
+
+
 
   <script>
     // 星を生成
@@ -602,6 +620,7 @@
       createTapEffect(e.touches[0]);
     });
   </script>
+  <div class="signature">Iko Nakari</div>
 </body>
 
 </html>
